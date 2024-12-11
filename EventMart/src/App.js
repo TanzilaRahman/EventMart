@@ -9,11 +9,15 @@ import './App.css';
 import AuthApp from "./AuthApp";
 import LoginModal from "./LoginModel";
 import SignupModal from "./SignupModal";
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import CheckoutForm from './CheckoutForm';
 
 const App = () => {
     const [user, setUser] = useState(null); // State to hold the current user
     const [isLoginModalOpen, setLoginModalOpen] = useState(false);
     const [isSignupModalOpen, setSignupModalOpen] = useState(false);
+    const stripePromise = loadStripe('pk_test_your_public_key_here');
 
     // Listen for user authentication changes
     useEffect(() => {
@@ -55,6 +59,12 @@ const App = () => {
                 onClose={() => setSignupModalOpen(false)}
             />
         </Router>
+        <Elements stripe={stripePromise}>
+          <div className="App">
+            <h1>Secure Payment</h1>
+            <CheckoutForm />
+          </div>
+        </Elements>
     );
 }
 
