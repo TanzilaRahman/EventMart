@@ -30,6 +30,7 @@ const App = () => {
     }, []);
 
     return (
+        <div>
         <Router>
             <NavBar user={user} setLoginModalOpen={setLoginModalOpen} setSignupModalOpen={setSignupModalOpen} />
 
@@ -65,6 +66,7 @@ const App = () => {
             <CheckoutForm />
           </div>
         </Elements>
+        </div>
     );
 }
 
