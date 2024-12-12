@@ -60,12 +60,6 @@ const App = () => {
                 onClose={() => setSignupModalOpen(false)}
             />
         </Router>
-        <Elements stripe={stripePromise}>
-          <div className="App">
-            <h1>Secure Payment</h1>
-            <CheckoutForm />
-          </div>
-        </Elements>
         </div>
     );
 }
