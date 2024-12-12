@@ -1,43 +1,76 @@
 import React, { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import Modal from "react-modal";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "./firebase"; // Import the Firebase auth instance
+import './SignupModal.css';
+import {FaGoogle} from "react-icons/fa"; // Import CSS file
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const SignUp = () => {
+function SignupModal({ isOpen, onClose, setUser }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
-    const handleSignUp = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
-        const auth = getAuth();
+        setError("");
+        if (password !== confirmPassword) {
+            setError("Passwords do not match.");
+            return;
+        }
         try {
+            // Use Firebase to create a new user
             await createUserWithEmailAndPassword(auth, email, password);
-            navigate("/main"); // Redirect to main page
-        } catch (error) {
-            alert(error.message);
+            // alert("Signup successful!");
+            onClose(); // Close the modal on success
+        } catch (err) {
+            setError("Failed to login with email/password.");
+            console.error(err.message);
         }
     };
 
     return (
-        <form onSubmit={handleSignUp}>
+        <Modal
+            isOpen={isOpen}
+            onRequestClose={onClose}
+            className="modal"
+            overlayClassName="modal-overlay"
+        >
             <h2>Sign Up</h2>
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-            <button type="submit">Sign Up</button>
-        </form>
-    );
-};
+            <br/>
+            {error && <p className="error">{error}</p>}
+            <form onSubmit={handleSignup}>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="input-field"
+                    required
+                />
+                <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Create Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="input-field"
+                    required
+                />
+                <span className="show-password-btn-signup" onClick={() => setShowPassword(!showPassword)}>
+      {showPassword ? <FaEyeSlash/> : <FaEye/>}
+  </span>
+                <button type="submit" className="signup-button"> {/* Change button class */}
+                    Sign Up
+                </button>
+            </form>
 
-export default SignUp;
+            <button onClick={onClose} className="cancel-button">
+                Cancel
+            </button>
+        </Modal>
+    );
+}
+
+export default SignupModal;
