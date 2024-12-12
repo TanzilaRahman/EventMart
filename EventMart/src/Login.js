@@ -14,14 +14,14 @@ const Login = () => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             alert("Logged in successfully!");
-            setLoginModalOpen(false); // Close the login modal on successful login
-        } catch (err) {
-            setError(err.message); // Show error message
+            navigate("/main"); // Redirect to main page
+        } catch (error) {
+            alert(error.message);
         }
     };
 
     return (
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleEmailLogin}>
             <h2>Login</h2>
             <input type="email" placeholder="Email" value={email}
                 onChange={(e) => setEmail(e.target.value)}
