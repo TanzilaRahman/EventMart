@@ -48,6 +48,9 @@ class CreateEvent extends Component {
     // Log the event data (could send to API or handle here)
     console.log("Event Created:", this.state);
 
+    const newEvent = { ...this.state };
+    this.props.addEvent(newEvent);
+
     // Optionally, reset the form after submission
     this.setState({
       eventName: "",
