@@ -1,0 +1,73 @@
+.modal {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 100px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-overlay {
+    background-color: rgba(245, 250, 255, 0.8); /* Light blue background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: 'Arial', sans-serif, serif;
+    font-size: 16px;
+}
+
+.show-password-btn-login{
+    position: absolute; /* Position the icon absolutely within the container */
+    top: 51%;
+    right: 120px; /* Adjust right value as needed */
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.login-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.google-button {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 10px; /* Add margin for spacing */
+}
+
+.cancel-button {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px; /* Add margin for spacing */
+}
+
+
+.error {
+    color: red;
+    margin-bottom: 10px;
+}
