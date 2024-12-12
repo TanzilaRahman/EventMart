@@ -1,10 +1,12 @@
 const mysql = require('mysql2');
 
+// Create a connection to the database
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',     
   password: '',    
-  database: 'eventdb'
+  database: 'eventdb' 
+});
 
 connection.connect((err) => {
   if (err) {
@@ -13,7 +15,6 @@ connection.connect((err) => {
   }
   console.log('Connected to database.');
 
-  
   const createTableQuery = `
     CREATE TABLE IF NOT EXISTS events (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,7 +37,6 @@ connection.connect((err) => {
   });
 });
 
-
 function addEvent(eventData, callback) {
   const { eventName, firstName, lastName, location, date, description } = eventData;
   
@@ -58,7 +58,6 @@ function addEvent(eventData, callback) {
   );
 }
 
-
 function getAllEvents(callback) {
   const selectQuery = 'SELECT * FROM events ORDER BY created_at DESC';
   
@@ -69,7 +68,6 @@ function getAllEvents(callback) {
     callback(null, results);
   });
 }
-
 
 module.exports = {
   connection,
