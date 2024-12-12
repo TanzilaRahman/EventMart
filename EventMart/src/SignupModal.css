@@ -26,7 +26,7 @@
 
 .show-password-btn-signup {
     position: absolute; /* Position the icon absolutely within the container */
-    top: 51%;
+    top: 61%;
     right: 120px; /* Adjust right value as needed */
     transform: translateY(-50%);
     cursor: pointer;
