@@ -35,7 +35,7 @@ function Navbar () {
 
     return (
         <nav className="navbar">
-            <h1>Local Events</h1>
+            <h1>EventMart</h1>
             <ul className="nav-links">
 
                 {/* Login Modal */}
