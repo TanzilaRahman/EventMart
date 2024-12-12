@@ -57,7 +57,7 @@ class CreateEvent extends Component {
       date: "",
       description: "",
     });
-  }
+    }
 
   render() {
     return (

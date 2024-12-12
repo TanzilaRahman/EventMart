@@ -4,7 +4,7 @@ import "./FindEvent.css";
 const FindEvent = ({ events }) => {
   const [expandedEventId, setExpandedEventId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-
+  
   // Function to toggle expanded view
   const toggleExpand = (eventId) => {
     setExpandedEventId((prev) => (prev === eventId ? null : eventId));
@@ -18,9 +18,11 @@ const FindEvent = ({ events }) => {
   };
 
   // Filter events based on search query
-  const filteredEvents = events.filter((event) =>
-    event.eventName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredEvents = events && events.length > 0 
+    ? events.filter((event) =>
+        event.eventName.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   return (
     <div

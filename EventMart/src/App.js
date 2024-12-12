@@ -30,7 +30,7 @@ const App = () => {
     }, []);
 
     return (
-        <div>
+       
         <Router>
             <NavBar user={user} setLoginModalOpen={setLoginModalOpen} setSignupModalOpen={setSignupModalOpen} />
 
@@ -60,7 +60,7 @@ const App = () => {
                 onClose={() => setSignupModalOpen(false)}
             />
         </Router>
-        </div>
+        
     );
 }
 
