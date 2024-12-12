@@ -18,25 +18,12 @@ function Navbar () {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser); // Set the user state whenever authentication state changes
         });
-
         return () => unsubscribe();
     }, []);
-
-    const handleGoogleLogin = async () => {
-        try {
-            const result = await signInWithPopup(auth, googleProvider);
-            const user = result.user;
-            alert("Logged in as " + user.displayName);
-        } catch (error) {
-            console.error("Google login error: ", error.message);
-            alert("Error logging in with Google");
-        }
-    };
 
 
     const handleLogout = async (event) => {
         event.preventDefault();  // Prevent default anchor link behavior
-
         try {
             await signOut(auth); // Firebase sign out
             alert("Logged out successfully!");
