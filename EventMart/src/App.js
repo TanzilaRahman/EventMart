@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import NavBar from './NavBar';
 import CreateEvent from './CreateEvent';
 import FindEvent from "./FindEvent";
+import Marketplace from './Marketplace'; 
 import './App.css';
 import AuthApp from "./AuthApp";
 import LoginModal from "./LoginModel";
@@ -42,6 +43,7 @@ const App = () => {
             <Routes>
                 <Route path="/find-event" element={<FindEvent events={events} />} />
                 <Route path="/create-event" element={<CreateEvent addEvent={addEvent} />} />
+                <Route path="/marketplace" element={<Marketplace />} /> 
 
                 {/* AuthApp will handle /login and /signup */}
                 <Route path="/login" element={<AuthApp />} />
