@@ -1,59 +1,44 @@
 import React, { useState } from "react";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import Modal from "react-modal";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase"; // Import the Firebase auth instance
+import { auth, googleProvider } from "./firebase"; // Firebase auth instance
+import { FaGoogle } from "react-icons/fa"; // Import Google icon from react-icons (optional)
+import './LoginModal.css'; // Import CSS file
 
-
-function SignupModal({ isOpen, onClose }) {
+function LoginModal({ isOpen, onClose, setUser }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [error, setError] = useState("");
+    const [error, setError] = useState(null);
 
-    const handleSignup = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         setError("");
-
-        if (password !== confirmPassword) {
-            setError("Passwords do not match.");
-            return;
-        }
-
         try {
-            // Use Firebase to create a new user
-            await createUserWithEmailAndPassword(auth, email, password);
-            alert("Signup successful!");
-            onClose(); // Close the modal on success
+            await signInWithEmailAndPassword(auth, email, password);
+            // alert("Login successful!");
+            onClose(); // Close the modal after a successful login
         } catch (err) {
-            setError(err.message); // Show error messages from Firebase
+            setError("Failed to login with email/password.");
+            console.error(err.message);
         }
     };
+
     return (
         <Modal
             isOpen={isOpen}
             onRequestClose={onClose}
-            style={{
-                content: {
-                    top: "50%",
-                    left: "50%",
-                    right: "auto",
-                    bottom: "auto",
-                    marginRight: "-50%",
-                    transform: "translate(-50%, -50%)",
-                    padding: "20px",
-                    width: "300px",
-                },
-            }}
+            className="modal"
+            overlayClassName="modal-overlay"
         >
-            <h2>Sign Up</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <form onSubmit={handleSignup}>
+            <h2>Login</h2>
+            {error && <p className="error">{error}</p>}
+            <form onSubmit={handleLogin}>
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    style={{ width: "100%", marginBottom: "10px" }}
+                    className="input-field"
                     required
                 />
                 <input
@@ -61,26 +46,18 @@ function SignupModal({ isOpen, onClose }) {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    style={{ width: "100%", marginBottom: "10px" }}
+                    className="input-field"
                     required
                 />
-                <input
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    style={{ width: "100%", marginBottom: "10px" }}
-                    required
-                />
-                <button type="submit" style={{ width: "100%", padding: "10px" }}>
-                    Sign Up
+                <button type="submit" className="login-button">
+                    Login
                 </button>
             </form>
-            <button onClick={onClose} style={{ marginTop: "10px", width: "100%" }}>
+            <button onClick={onClose} className="cancel-button">
                 Cancel
             </button>
         </Modal>
     );
 }
 
-export default SignupModal;
+export default LoginModal;
