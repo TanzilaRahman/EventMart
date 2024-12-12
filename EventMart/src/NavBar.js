@@ -7,6 +7,7 @@ import LoginModal from "./LoginModel";
 import SignupModal from "./SignupModal";
 import { signInWithPopup } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function Navbar () {
     const [user, setUser] = useState(null); // State to hold the current user
@@ -22,14 +23,13 @@ function Navbar () {
     }, []);
 
 
-    const handleLogout = async (event) => {
-        event.preventDefault();  // Prevent default anchor link behavior
+    const handleLogout = async () => {
         try {
-            await signOut(auth); // Firebase sign out
-            alert("Logged out successfully!");
-        } catch (err) {
-            console.error("Error signing out: ", err.message);
-            alert("Error logging out!");
+            await signOut(auth);
+            navigate("/login");
+        } catch (error) {
+            console.error("Logout failed:", error);
+            // Handle the logout error (e.g., display an error message)
         }
     };
 
@@ -66,7 +66,7 @@ function Navbar () {
                             <Link to="/marketplace">Marketplace</Link>
                         </li>
                         <li>
-                            <a href="#" onClick={(e) => handleLogout(e)}>Logout</a>
+                            <Link to="/login" onClick={handleLogout}>Logout</Link>
                         </li>
                     </>
                 )}
