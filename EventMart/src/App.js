@@ -29,14 +29,19 @@ const App = () => {
         return () => unsubscribe();
     }, []);
 
+    const [events, setEvents] = useState([]);
+    const addEvent = (event) => {
+        setEvents((prevEvents) => [...prevEvents, event]);
+      };
+
     return (
        
         <Router>
             <NavBar user={user} setLoginModalOpen={setLoginModalOpen} setSignupModalOpen={setSignupModalOpen} />
 
             <Routes>
-                <Route path="/find-event" element={<FindEvent/>}/>
-                <Route path="/create-event" element={<CreateEvent/>}/>
+                <Route path="/find-event" element={<FindEvent events={events} />} />
+                <Route path="/create-event" element={<CreateEvent addEvent={addEvent} />} />
 
                 {/* AuthApp will handle /login and /signup */}
                 <Route path="/login" element={<AuthApp />} />
